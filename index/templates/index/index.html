@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<!-- 引入外部CSS -->
+	<link rel="stylesheet" type="text/css" href="/static/css/index.css">
+	<script src="/static/js/jquery-1.11.3.js"></script>
+	<script src="/static/js/index.js"></script>
+    <link rel="shortcut icon" type="image/x-icon" href="/static/img/shu_logo.png"/>
+
+<body >
+<div id="container">
+
+		<!-- 导航 -->
+		<div id="nav">
+			<ul class="rightNav">
+				<li><a href="/">首页</a></li>
+                <li>
+                        全国GDP分布
+                    <select name="year" onchange="self.location.href=options[selectedIndex].value" style="background-color: #CCCCCC">
+                        <option value="{% url 'index:chinamap_2011' %}">
+                            2011
+                        </option>
+
+                        <option value="{% url 'index:chinamap_2012' %}">
+                            2012
+                        </option>
+                        <option value="{% url 'index:chinamap_2013' %}">
+                            2013
+                        </option>
+                        <option value="{% url 'index:chinamap_2014' %}">
+                            2014
+                        </option>
+                        <option value="{% url 'index:chinamap_2015' %}">
+                            2015
+                        </option>
+                        <option value="{% url 'index:chinamap_2016' %}">
+                            2016
+                        </option>
+                        <option value="{% url 'index:chinamap_2017' %}">
+                            2017
+                        </option>
+                    </select>
+
+                </li>
+
+            <li>
+{#                    <span>#}
+{#                        生成地图路径#}
+{#                    </span>#}
+
+{#                    <select name="year" onchange="self.location.href=options[selectedIndex].value">#}
+{#                        <option value="{% url 'economic:number_2011' %}">#}
+{#                            2011#}
+{#                        </option>#}
+{##}
+{#                        <option value="{% url 'economic:number_2012' %}">#}
+{#                            2012#}
+{#                        </option>#}
+{#                        <option value="{% url 'economic:number_2013' %}">#}
+{#                            2013#}
+{#                        </option>#}
+{#                        <option value="{% url 'economic:number_2014' %}">#}
+{#                            2014#}
+{#                        </option>#}
+{#                        <option value="{% url 'economic:number_2015' %}">#}
+{#                            2015#}
+{#                        </option>#}
+{#                        <option value="{% url 'economic:number_2016' %}">#}
+{#                            2016#}
+{#                        </option>#}
+{#                        <option value="{% url 'economic:number_2017' %}">#}
+{#                            2017#}
+{#                        </option>#}
+{#                        <option value="{% url 'economic:Zhuzhuangtu3d' %}">#}
+{#                            生成3d柱状图#}
+{#                        </option>#}
+{#                        <option value="{% url 'economic:LouDou_2011' %}">#}
+{#                            生成2011年漏斗图#}
+{#                        </option>#}
+{#                        <option value="{% url 'economic:LouDou_2012' %}">#}
+{#                            生成2012年漏斗图#}
+{#                        </option>#}
+{#                        <option value="{% url 'economic:LouDou_2013' %}">#}
+{#                            生成2013年漏斗图#}
+{#                        </option>#}
+{#                        <option value="{% url 'economic:LouDou_2014' %}">#}
+{#                            生成2014年漏斗图#}
+{#                        </option>#}
+{#                        <option value="{% url 'economic:LouDou_2015' %}">#}
+{#                            生成2015年漏斗图#}
+{#                        </option>#}
+{#                        <option value="{% url 'economic:LouDou_2016' %}">#}
+{#                            生成2016年漏斗图#}
+{#                        </option>#}
+{#                        <option value="{% url 'economic:LouDou_2017' %}">#}
+{#                            生成2017年漏斗图#}
+{#                        </option>#}
+{##}
+{#                        <option value="{% url 'economic:Zhexiantu' %}">#}
+{#                            生成GDP构成及分布图#}
+{#                        </option>#}
+{##}
+{#                        <option value="{% url 'economic:Year_level' %}">#}
+{#                            生成各年份居民消费水平图#}
+{#                        </option>#}
+{##}
+{#                        <option value="{% url 'economic:Duibi' %}">#}
+{#                            生成2017年各地区居民消费水平图#}
+{#                        </option>#}
+{#                    </select>#}
+                </li>
+
+                {% if not uname %}
+                <li onclick='f()'><a href="/">数据中心</a></li>
+                {% else %}
+				<li><a href="{% url 'index:number_list1' %}">数据中心</a></li>
+                {% endif %}
+
+                {% if not uname %}
+				<li><a href="/users/login">登录</a></li>
+				<li><a href="/users/register">注册</a></li>
+                {% else %}
+                <li><a>欢迎:{{ uname }}</a></li>
+                <li><a href="/users/logout/">退出</a></li>
+                {% endif %}
+			</ul>
+			<ul class="leftNav">
+				<li>
+					<img src="/static/img/zhishu.png">
+				</li>				
+			</ul>
+		</div>
+
+		<!-- 图片轮播 -->
+		<div id="wrapper">
+			<div class="banner">
+                <a href="{% url 'index:chinamap_2015' %}">
+				    <img src="/static/img/2015中国经济占比地图_副本.png" class="img_1">
+                </a>
+
+
+				    <img src="/static/img/2016中国经济占比地图_副本.png" class="img_1" >
+
+
+
+				    <img src="/static/img/2017中国经济占比地图_副本.png" class="img_1">
+
+			</div>
+			<ul class="imgNav">
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+
+		</div>
+
+
+          {% block div1 %}
+          
+          {% endblock %}
+
+
+		<div id="bottomDiv1">
+            
+			<p style="color: white">平顶山学院<b><<尚世康>></b>工作室</p>
+            
+		</div>
+		
+	</div>
+
+
+
+</body>
+</html>

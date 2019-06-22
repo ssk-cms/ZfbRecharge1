@@ -1,0 +1,164 @@
+<!doctype html>
+{% load staticfiles %}
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>数据中心</title>
+    <meta name="description" content="这是一个 index 页面">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <link rel="icon" type="image/png" href={% static "img/shu_logo.png" %}>
+    <link rel="apple-touch-icon-precomposed" href={% static "i/app-icon72x72@2x.png" %}>
+    <meta name="apple-mobile-web-app-title" content="cms"/>
+    <link rel="stylesheet" href={% static "css/amazeui.min.css" %}/>
+    <link rel="stylesheet" href={% static "css/admin.css" %}>
+    <script src={% static "js/jquery.min.js" %}></script>
+    <script src={% static "js/app.js" %}></script>
+</head>
+<body>
+<!--[if lte IE 9]><p class="browsehappy">升级你的浏览器吧！ <a href="http://se.360.cn/" target="_blank">升级浏览器</a>以获得更好的体验！</p>
+<![endif]-->
+</head>
+
+<body>
+<header class="am-topbar admin-header">
+    <div class="am-topbar-brand"><img  style="width: 100px;height: 50px;" src={% static "img/zhishu.png" %} ></div>
+
+    <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+        <ul class="am-nav am-nav-pills am-topbar-nav admin-header-list">
+
+
+
+            <li class="kuanjie">
+                <a href="/">首页</a>
+                <a href="{% url 'index:Area_3d' %}">地区经济信息</a>
+                <a href="{% url 'index:compose' %}">GDP构成及分布</a>
+                <a href="{% url 'index:show_level' %}">全国居民消费水平及对比</a>
+{#                <a href="/goods/supplier/">国内生产总值指数(上一年=100)</a>#}
+{#                <a href="/goods/customer_info/">国内生产总值指数(上一年=1978)</a>#}
+                <a href="/admin/">开发后台</a>
+            </li>
+
+            　
+        </ul>
+        　
+    </div>
+</header>
+
+<div class="am-cf admin-main">
+
+    <div class="nav-navicon admin-main admin-sidebar">
+
+
+
+        <div class="sideMenu">
+            <h3><em></em> <a href="{% url 'index:Area_3d' %}">地区经济信息</a></h3>
+            <ul>
+                <li><a href="{% url 'index:number_list1' %}">数据列表</a></li>
+                <li><a href="{% url 'index:LouDou_2011' %}">2011年漏斗图</a></li>
+                <li><a href="{% url 'index:LouDou_2012' %}">2012年漏斗图</a></li>
+                <li><a href="{% url 'index:LouDou_2013' %}">2013年漏斗图</a></li>
+                <li><a href="{% url 'index:LouDou_2014' %}">2014年漏斗图</a></li>
+                <li><a href="{% url 'index:LouDou_2015' %}">2015年漏斗图</a></li>
+                <li><a href="{% url 'index:LouDou_2016' %}">2016年漏斗图</a></li>
+                <li><a href="{% url 'index:LouDou_2017' %}">2017年漏斗图</a></li>
+            </ul>
+            <h3><em></em> <a href="{% url 'index:compose_list' %}">GDP构成及分布</a></h3>
+            <ul>
+                <li><a href="{% url 'index:compose_list' %}">分布列表</a></li>
+                <li><a href="{% url 'index:compose' %}">构成折线图</a></li>
+
+            </ul>
+            <h3><em></em> <a href="{% url 'index:Level_year' %}">全国居民消费水平及对比</a></h3>
+            <ul>
+                <li><a href="{% url 'index:Level_year' %}">各年份城乡消费水平对比</a></li>
+                <li><a href="{% url 'index:Duibi_show' %}">同一年各地区消费水平对比</a></li>
+                <li><a href="{% url 'index:show_level' %}">数据列表</a></li>
+            </ul>
+{#            <h3><em></em> <a href="{% url 'goods:customer_info' %}">国内生产总值指数(上一年=100)</a></h3>#}
+{#            <ul>#}
+{#                <li><a href="{% url 'goods:customer_info' %}">数据列表</a></li>#}
+{#                <li><a href="{% url 'goods:customer_add' %}">添加客户信息</a></li>#}
+{#                <li><a href="{% url 'goods:customer_chg' %} ">修改客户信息</a></li>#}
+{#                <li><a href="{% url 'goods:customer_del' %}">已删除的客户信息</a></li>#}
+{##}
+{#            </ul>#}
+{#            <h3><em></em> <a href="/orders"> 订单管理</a></h3>#}
+{#            <ul>#}
+{#                <li><a href="/orders">订单列表</a></li>#}
+{#                <li><a href="/orders/find_orders/">搜索订单</a></li>#}
+{#                <li><a href="/orders/print_orders/">订单打印</a></li>#}
+{#                <li><a href="/orders/add_orders/">添加订单</a></li>#}
+{#                <li><a href="">发货单列表</a></li>#}
+{#                <li><a href="">换货单列表</a></li>#}
+{#            </ul>#}
+{#            <h3><em></em> <a href="{% url 'goods:shop_info' %}">门店设置</a></h3>#}
+{#            <ul>#}
+{#                <li><a href="{% url 'goods:shop_info' %}">门店信息</a></li>#}
+{#                <li><a href="{% url 'goods:shop_info_add' %}">添加门店</a></li>#}
+{#                <li><a href="{% url 'goods:shop_trash' %}">未启用门店</a></li>#}
+{#            </ul>#}
+{#            <h3><em></em> <a href="{% url 'dgshowdata:chart' %}">报表查询</a></h3>#}
+{#            <ul>#}
+{#                <li><a href="{% url 'dgshowdata:chart_zhu' %}">柱形图</a></li>#}
+{#                <li><a href="{% url 'dgshowdata:chart_zhe' %}">走势图</a></li>#}
+{#                <li><a href="{% url 'dgshowdata:chart_bin' %} ">饼图</a></li>#}
+{#            </ul>#}
+
+        </div>
+        <!-- sideMenu End -->
+
+        <script type="text/javascript">
+            jQuery(".sideMenu").slide({
+                titCell: "h3", //鼠标触发对象
+                targetCell: "ul", //与titCell一一对应，第n个titCell控制第n个targetCell的显示隐藏
+                effect: "slideDown", //targetCell下拉效果
+                delayTime: 300, //效果时间
+                triggerTime: 150, //鼠标延迟触发时间（默认150）
+                defaultPlay: true,//默认是否执行效果（默认true）
+                returnDefault: true //鼠标从.sideMen移走后返回默认状态（默认false）
+            });
+        </script>
+
+
+    </div>
+
+    <div class=" admin-content">
+
+        <div class="daohang">
+        </div>
+
+
+    </div>
+
+
+
+    {% block admin %}
+
+    {% endblock admin %}
+    <div class="foods">
+        <ul>
+            版权所有@2019 平顶山学院
+        </ul>
+        <dl>
+            <a href="" title="返回头部" class="am-icon-btn am-icon-arrow-up"></a>
+        </dl>
+    </div>
+
+
+</div>
+
+
+
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script src="assets/js/amazeui.min.js"></script>
+<!--<![endif]-->
+{% block style %}
+
+{% endblock %}
+
+</body>
+</html>

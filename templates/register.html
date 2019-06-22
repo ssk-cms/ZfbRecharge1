@@ -1,0 +1,44 @@
+{% extends 'login.html' %}
+
+{% block title %}
+    <title>知数-注册</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/static/img/shu_logo.png"/>
+{% endblock %}
+
+
+{% block register1 %}
+    <a href="/users/login/" id="switch_signup" class="switch_btn" style="">登录</a>
+    <a href="/users/register/" id="switch_login" class="switch_btn on">注册</a>
+{% endblock %}
+
+{% block login %}
+    <div id="login">
+		<form method="post" action="/users/register/">
+            {% csrf_token %}
+			<ul class="group_input">
+				<li>
+					<input type="text" placeholder="姓名" class="name required" id="name" name="uname" />
+				</li>
+				<li>
+					<input type="text" placeholder="手机号(仅支持中国大陆)" class="mobile required" id="phone" name="uphone" maxlength="11"/>
+				    {{ errMsg }}
+                </li>
+
+				<li>
+					<input type="password" placeholder="密码(不少于6位)" class="psd required" id="psd" name="upwd" />
+				</li>
+                <li>
+					<input type="password" placeholder="请再次输入密码" class="psd required" id="psd1" name="cpwd" />
+                    <span style="color: red;padding-left: 10px;">{{ error }}</span>
+				</li>
+                <li>
+					<input type="email" placeholder="邮箱" id="mobile" name="uemail"/>
+				</li>
+			</ul>
+			<button type="submit" class="submit_btn" id="btnSubmit" onclick="sendSubmit()">注册知数账号</button>
+{#			<span class="agreement-tip">点击「注册」按钮，即代表你同意以下声明</span>#}
+{#            <br>#}
+{#            <span class="agreement-tip"><a>隐私声明</a></span>#}
+		</form>
+    </div>
+{% endblock %}

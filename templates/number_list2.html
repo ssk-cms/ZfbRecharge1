@@ -1,0 +1,109 @@
+
+{% extends "index.html" %}
+
+{% block admin %}
+
+
+<div class="admin-biaogelist">
+	
+    <div class="listbiaoti am-cf">
+      <ul> 栏目名称</ul>
+      
+      <dl style="float: right;"> 当前位置： 数据列表(单位:亿元) > <a href="{% url 'index:number_list1' %}">地区经济信息</a></dl>
+
+    </div>
+	
+	<div class="am-btn-toolbars am-btn-toolbar am-kg am-cf">
+
+</div>
+
+
+    <form class="am-form am-g">
+          <table width="100%" class="am-table am-table-bordered am-table-radius am-table-striped">
+            <thead>
+              <tr class="am-success">
+                <th class="table-title">年份</th>
+                <th class="table-type">北京</th>
+                  <th class="table-title">天津</th>
+                <th class="table-type">河北</th>
+                  <th class="table-title">山西</th>
+                <th class="table-type">内蒙古</th>
+                  <th class="table-title">辽宁</th>
+                <th class="table-type">吉林</th>
+                  <th class="table-title">黑龙江</th>
+                <th class="table-type">上海</th>
+                  <th class="table-title">江苏</th>
+                <th class="table-type">浙江</th>
+                  <th class="table-title">安徽</th>
+                <th class="table-type">福建</th>
+                  <th class="table-title">江西</th>
+                <th class="table-type">山东</th>
+                  <th class="table-title">河南</th>
+                <th class="table-type">湖北</th>
+                  <th class="table-title">湖南</th>
+                <th class="table-type">广东</th>
+                  <th class="table-type">广西</th>
+                  <th class="table-title">海南</th>
+                <th class="table-type">重庆</th>
+                  <th class="table-title">四川</th>
+                <th class="table-type">贵州</th>
+                  <th class="table-title">云南</th>
+                <th class="table-type">西藏</th>
+                  <th class="table-title">陕西</th>
+                <th class="table-type">甘肃</th>
+                  <th class="table-title">青海</th>
+                <th class="table-type">宁夏</th>
+                  <th class="table-title">新疆</th>
+
+              </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                  <td><a href="#">{{ num.year }}</a></td>
+                    {% for num in number %}
+                  <td>{{ num.beijing }}</td>
+                  <td>{{ num.tianjin }}</td>
+                <td>{{ num.hebei }}</td>
+                <td>{{ num.shanxi }}</td>
+                <td>{{ num.neimenggu }}</td>
+                <td>{{ num.liaoning }}</td>
+                <td>{{ num.jilin }}</td>
+                <td>{{ num.heilongjiang }}</td>
+                <td>{{ num.shanghai }}</td>
+                <td>{{ num.jiangsu }}</td>
+                <td>{{ num.zhejiang }}</td>
+                <td>{{ num.anhui }}</td>
+                <td>{{ num.fujian }}</td>
+                <td>{{ num.jiangxi }}</td>
+                <td>{{ num.shandong }}</td>
+                <td>{{ num.henan }}</td>
+                <td>{{ num.hubei }}</td>
+                <td>{{ num.hunan }}</td>
+                <td>{{ num.guangdong }}</td>
+                <td>{{ num.guangxi }}</td>
+                <td>{{ num.hainan }}</td>
+                <td>{{ num.chongqing }}</td>
+                <td>{{ num.sichuan }}</td>
+
+                <td>{{ num.guizhou }}</td>
+                <td>{{ num.yunnan }}</td>
+                <td>{{ num.xizang }}</td>
+                <td>{{ num.shangxi }}</td>
+                <td>{{ num.gansu }}</td>
+
+                <td>{{ num.qinghai }}</td>
+                <td>{{ num.ningxia }}</td>
+                <td>{{ num.xinjiang }}</td>
+
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+      
+          <hr />
+
+    </form>
+
+
+{% endblock admin %}

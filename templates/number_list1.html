@@ -1,0 +1,264 @@
+
+{% extends "index.html" %}
+
+{% block admin %}
+
+
+<div class="admin-biaogelist">
+	
+    <div class="listbiaoti am-cf">
+      <ul> 栏目名称:地区经济信息(单位:亿元)</ul>
+      
+      <dl style="float: right;"> 当前位置： 数据列表 > <a href="{% url 'index:number_list1' %}">地区经济信息</a></dl>
+
+    </div>
+	
+	<div class="am-btn-toolbars am-btn-toolbar am-kg am-cf">
+
+</div>
+
+
+    <form class="am-form am-g">
+          <table width="100%" class="am-table am-table-bordered am-table-radius am-table-striped">
+            <thead>
+              <tr class="am-success">
+                <th class="table-title">城市</th>
+                <th class="table-type">2011年</th>
+                  <th class="table-title">2012年</th>
+                <th class="table-type">2013年</th>
+                  <th class="table-title">2014年</th>
+                <th class="table-type">2015年</th>
+                  <th class="table-title">2016年</th>
+                <th class="table-type">2017年</th>
+
+              </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td>北京</td>
+                    {% for number in number_list %}
+                            <td>{{ number.beijing }}</td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td class="table-title">天津</td>
+                    {% for number in number_list %}
+                            <td>{{ number.tianjin }}</td>
+                    {% endfor %}
+                </tr>
+
+                <tr>
+                    <td class="table-type">河北</td>
+                    {% for number in number_list %}
+                            <td>{{ number.hebei }}</td>
+                    {% endfor %}
+                </tr>
+
+                <tr>
+                    <td class="table-title">山西</td>
+                    {% for number in number_list %}
+                            <td>{{ number.shangxi }}</td>
+                    {% endfor %}
+                </tr>
+
+                <tr>
+                    <td class="table-type">内蒙古</td>
+                    {% for number in number_list %}
+                            <td>{{ number.neimenggu }}</td>
+                    {% endfor %}
+                </tr>
+
+                <tr>
+                    <td class="table-title">辽宁</td>
+                    {% for number in number_list %}
+                            <td>{{ number.liaoning }}</td>
+                    {% endfor %}
+                </tr>
+
+                <tr>
+                    <td class="table-type">吉林</td>
+                    {% for number in number_list %}
+                            <td>{{ number.jilin }}</td>
+                    {% endfor %}
+                </tr>
+
+                <tr>
+                    <td class="table-title">黑龙江</td>
+                    {% for number in number_list %}
+                            <td>{{ number.heilongjiang }}</td>
+                    {% endfor %}
+                </tr>
+
+                <tr>
+                    <td class="table-type">上海</td>
+                    {% for number in number_list %}
+                            <td>{{ number.shanghai }}</td>
+                    {% endfor %}
+                </tr>
+
+                <tr>
+                    <td class="table-title">江苏</td>
+                    {% for number in number_list %}
+                            <td>{{ number.jiangsu }}</td>
+                    {% endfor %}
+                </tr>
+
+                <tr>
+                    <td class="table-type">浙江</td>
+                    {% for number in number_list %}
+                            <td>{{ number.zhejiang }}</td>
+                    {% endfor %}
+                </tr>
+
+                <tr>
+                    <td class="table-title">安徽</td>
+                    {% for number in number_list %}
+                            <td>{{ number.anhui }}</td>
+                    {% endfor %}
+                </tr>
+
+                <tr>
+                    <td class="table-type">福建</td>
+                    {% for number in number_list %}
+                            <td>{{ number.fujian }}</td>
+                    {% endfor %}
+                </tr>
+
+                <tr>
+                    <td class="table-title">江西</td>
+                    {% for number in number_list %}
+                            <td>{{ number.jiangxi }}</td>
+                    {% endfor %}
+                </tr>
+
+                <tr>
+                    <td class="table-type">山东</td>
+                    {% for number in number_list %}
+                            <td>{{ number.shandong }}</td>
+                    {% endfor %}
+                </tr>
+
+                <tr>
+                    <td class="table-title">河南</td>
+                    {% for number in number_list %}
+                            <td>{{ number.henan }}</td>
+                    {% endfor %}
+                </tr>
+
+                <tr>
+                    <td class="table-type">湖北</td>
+                    {% for number in number_list %}
+                            <td>{{ number.hubei }}</td>
+                    {% endfor %}
+                </tr>
+
+                <tr>
+                    <td class="table-title">湖南</td>
+                    {% for number in number_list %}
+                            <td>{{ number.hunan }}</td>
+                    {% endfor %}
+                </tr>
+
+                <tr>
+                    <td class="table-type">广东</td>
+                    {% for number in number_list %}
+                            <td>{{ number.guangdong }}</td>
+                    {% endfor %}
+                </tr>
+
+                <tr>
+                    <td class="table-type">广西</td>
+                    {% for number in number_list %}
+                            <td>{{ number.guangxi }}</td>
+                    {% endfor %}
+                </tr>
+
+
+                <tr>
+                    <td class="table-title">海南</td>
+                    {% for number in number_list %}
+                            <td>{{ number.hainan }}</td>
+                    {% endfor %}
+                </tr>
+
+                <tr>
+                    <td class="table-type">重庆</td>
+                    {% for number in number_list %}
+                            <td>{{ number.chongqing }}</td>
+                    {% endfor %}
+                </tr>
+
+                <tr>
+                    <td class="table-title">四川</td>
+                    {% for number in number_list %}
+                            <td>{{ number.sichuan }}</td>
+                    {% endfor %}
+                </tr>
+
+                <tr>
+                    <td class="table-type">贵州</td>
+                    {% for number in number_list %}
+                            <td>{{ number.guizhou }}</td>
+                    {% endfor %}
+                </tr>
+
+                <tr>
+                    <td class="table-title">云南</td>
+                    {% for number in number_list %}
+                            <td>{{ number.yunnan }}</td>
+                    {% endfor %}
+                </tr>
+
+                <tr>
+                    <td class="table-type">西藏</td>
+                    {% for number in number_list %}
+                            <td>{{ number.xizang }}</td>
+                    {% endfor %}
+                </tr>
+
+                <tr>
+                    <td class="table-title">陕西</td>
+                    {% for number in number_list %}
+                            <td>{{ number.shangxi }}</td>
+                    {% endfor %}
+                </tr>
+
+                <tr>
+                    <td class="table-type">甘肃</td>
+                    {% for number in number_list %}
+                            <td>{{ number.gansu }}</td>
+                    {% endfor %}
+                </tr>
+
+                <tr>
+                    <td class="table-title">青海</td>
+                    {% for number in number_list %}
+                            <td>{{ number.qinghai }}</td>
+                    {% endfor %}
+                </tr>
+
+                <tr>
+                    <td class="table-type">宁夏</td>
+                    {% for number in number_list %}
+                            <td>{{ number.ningxia }}</td>
+                    {% endfor %}
+                </tr>
+
+                <tr>
+                    <td class="table-title">新疆</td>
+                    {% for number in number_list %}
+                            <td>{{ number.xinjiang }}</td>
+                    {% endfor %}
+                </tr>
+
+
+            </tbody>
+          </table>
+      
+
+
+    </form>
+
+
+{% endblock admin %}

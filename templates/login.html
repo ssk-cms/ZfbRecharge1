@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+    {% block title %}
+	    <title>知数-登录</title>
+        <link rel="shortcut icon" type="image/x-icon" href="/static/img/shu_logo.png"/>
+    {% endblock %}
+	<link rel="stylesheet" href="/static/css/style.css">
+	<link rel="stylesheet" href="/static/css/base.css">
+	<link rel="stylesheet" href="/static/css/login.css" />
+</head>
+<body>
+{% block body %}
+
+
+	<!-- particles.js container -->
+	<div id="particles-js"></div>
+	<div id="wrapper">
+		<div>
+			<img src="/static/img/zhishu.png" />
+			<h2>让统计更简单</h2>
+		</div>
+		<nav class="switch_nav">
+            {% block register1 %}
+                <a href="/users/login/" id="switch_login" class="switch_btn on">登录</a>
+
+			    <a href="/users/register/" id="switch_signup" class="switch_btn">注册</a>
+            {% endblock %}
+			<div class="switch_bottom" id="switch_bottom"></div>
+		</nav>
+		<div id="login">
+            {% block login %}
+			<form method="post" action="/users/login/">
+                {% csrf_token %}
+				<ul class="group_input">
+					<li>
+						<input type="text" class="mobile required" id="mobile" placeholder="手机号或邮箱" name="uphone" />
+					</li>
+					<li>
+						<input type="password" class="psd required" id="psd" placeholder="密码" name="upwd" />
+					</li>
+                    <li style="padding-top: 20px;color: red;">
+                        {{ error }}
+                    </li>
+				</ul>
+                <span style="color: #c10802;">
+                    {{ message }}
+                </span>
+				<button type="submit" class="submit_btn" id="btnSubmit">登录</button>
+
+			</form>
+
+			<div class="states">
+                <input type="checkbox" name="isSaved" class="left" checked>
+				<span class="left"><a href="javascript:;" style="padding-left: 10px">记住密码</a></span>
+                <span class="right">
+
+                    <a href="/users/detail_login/">无法登录?</a>
+
+                </span>
+			</div>
+            {% endblock %}
+
+		</div>
+
+	</div>
+{% endblock %}
+	<script src="/static/js/jquery.min.js"></script>
+	<script src="/static/js/particles.min.js"></script>
+	<script src="/static/js/app1.js"></script>
+
+</body>
+</html>
