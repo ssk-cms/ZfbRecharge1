@@ -319,10 +319,10 @@ class Alipay_Bill_Info(object):
                     self.info_list.append(
                         dict(time=time, amount=amount, code=code))
                 except:
-                    self.info_list.append({'error': '出现错误,请加站长支付宝好友获取充值码'})
+                    self.info_list.append({'error': '账单获取失败'})
 
         else:
-            self.info_list.append({'error': '出现错误,请加站长支付宝好友获取充值码'})
+            self.info_list.append({'error': '账单获取失败请重新调试'})
         return self.info_list
 
 
