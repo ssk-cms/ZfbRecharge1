@@ -20,15 +20,12 @@ def open_excel():
 
 # 连接数据库
 
-
-
 def search_count(cursor):
 
     select = "select count(id) from economic_gdp"  # 获取表中xxxxx记录数
     cursor.execute(select)  # 执行sql语句
     line_count = cursor.fetchone()
     print(line_count[0])
-
 
 def insert_deta(cursor):
     sheet = open_excel()
