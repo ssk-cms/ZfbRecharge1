@@ -5,8 +5,10 @@
 通过 seleium 登录支付宝，
 获取 cookies
 '''
+import threading
 
 import requests
+from lxml import etree
 from selenium import webdriver
 from bs4 import BeautifulSoup
 from selenium.webdriver.chrome.options import Options
@@ -26,8 +28,8 @@ e_bank_Url = 'https://cashiergtj.alipay.com:443/standard/deposit/chooseBank.htm?
 
 
 # 登录用户名和密码
-USERNMAE = ''
-PASSWD = ''
+USERNMAE = '13295037295'
+PASSWD = '110xiaoyangzi'
 
 # 自定义 headers
 HEADERS = {
@@ -60,40 +62,45 @@ class Alipay_Bill_Info(object):
         self.session.headers = self.headers
         # 初始化存储列表
         self.info_list = []
+        #构建浏览器请求
+        self.sel = webdriver.Chrome()
+        self.sel.maximize_window()
+        self.sel.get(Login_Url)
+        self.sel.implicitly_wait(3)
+        time.sleep(3)
+        self.sel.save_screenshot("0.png")
+        self.sel.save_screenshot("1.png")
+        print("请30S内扫描二维码")
+        time.sleep(30)
 
     def wait_input(self, ele, str):
         '''减慢账号密码的输入速度'''
         for i in str:
-            ele.send_keys(int(i))
+            ele.send_keys(i)
             time.sleep(0.5)
 
     def get_cookies(self):
         '''获取 cookies'''
 
         # 初始化浏览器对象
-        chrome_options = Options()
-        chrome_options.add_argument('--headless')
-        sel = webdriver.Chrome('D:\Program Files\python\Scripts\chromedriver.exe',chrome_options=chrome_options)
-        # sel = webdriver.Chrome()
-        sel.maximize_window()
-        sel.get(Login_Url)
-        sel.implicitly_wait(3)
-        # sel.find_element_by_xpath('//div[@class="authcenter-body-login"]/ul[@class="ui-nav"]/li')
-        # 找到用户名字输入框
-        # uname = sel.find_element_by_id('J-input-user')
-        # uname.clear()
+        # chrome_options = Options()
+        # chrome_options.add_argument('--headless')
+        # sel = webdriver.Chrome('D:\Program Files\python\Scripts\chromedriver.exe',chrome_options=chrome_options)
+
+        # sel.find_element_by_xpath("//*[@id='J-loginMethod-tabs']/li[2]").click()
+        # # 找到用户名字输入框
+        # uname = sel.find_element_by_xpath('//*[@id="J-input-user"]')
+        # # uname.clear()
         # print('正在输入账号.....')
         # self.wait_input(uname, self.user)
         # time.sleep(1)
         # # 找到密码输入框
-        # upass = sel.find_element_by_id('password_rsainput')
+        # upass = sel.find_element_by_xpath('//*[@id="password_rsainput"]')
         # upass.clear()
+        #
         # print('正在输入密码....')
         # self.wait_input(upass, self.passwd)
         # 截图查看
-        sel.save_screenshot('1.png')
-        print("请30S内扫描二维码")
-        time.sleep(30)
         # 找到登录按钮
         # butten = sel.find_element_by_id('J-login-btn')
         # time.sleep(1)
@@ -253,18 +260,16 @@ class Alipay_Bill_Info(object):
         # # 登录到网上银行进行充值，开始显示页面
         # ActionChains(sel).double_click(sel.find_element_by_id("J-deposit-submit")).perform()
         # sel.save_screenshot("7.png")
-
-
         # 获取 cookies 并转换为字典类型
-        cookies = sel.get_cookies()
-        print(cookies)
+        cookies = self.sel.get_cookies()
+        # print(cookies)
         cookies_dict = {}
         for cookie in cookies:
-            print(cookie)
+            # print(cookie)
             if 'name' in cookie and 'value' in cookie:
                 cookies_dict[cookie['name']] = cookie['value']
 
-        print(cookies_dict)
+        # print(cookies_dict)
 
         return cookies_dict
 
@@ -274,7 +279,7 @@ class Alipay_Bill_Info(object):
     def set_cookies(self):
         '''将获取到的 cookies 加入 session'''
         c = self.get_cookies()
-        print(c)
+        # print(c)
         self.session.cookies.update(c)
         print(self.session.cookies)
 
@@ -283,7 +288,7 @@ class Alipay_Bill_Info(object):
         # 添加 cookies
         self.set_cookies()
         status = self.session.get(
-            MyZfb_Url, timeout=5, allow_redirects=False).status_code
+            Bill_Url, timeout=5, allow_redirects=False).status_code
         print(status)
         if status == 200:
             return True
@@ -307,67 +312,54 @@ class Alipay_Bill_Info(object):
         数据以字典格式保存在列表里
         '''
         status = self.login_status()
-        print(status)
+        # print(status)
         if status:
-            chrome_options = Options()
-            chrome_options.add_argument('--headless')
-            sel = webdriver.Chrome('D:\Program Files\python\Scripts\chromedriver.exe',chrome_options=chrome_options)
-            sel.get(Bill_Url)
-            sel.implicitly_wait(3)
-            time.sleep(2)
-            try:
-                sel.find_element_by_xpath('//*[@id="J-item-1"]')
-            except:
-                print("登录出错！")
-                sel.close()
-                return
-            # db = DbHandle()
-            # sql = "SELECT set_date FROM ali_pay_bill ORDER BY bid DESC LIMIT 1"
-            # print(sql)
-            # dateline = db.select_one(sql)
-            # result = dateline['set_date']
-            # result = result.replace('.', '')
-            # result = result.replace('-', '')
-            # result = result.replace(':', '')
-            # dateline = int(result[2:])
-            # print(dateline)
-            global N
-            for num in range(10):
-                num = num + 1
-                al_day_xpath = '//*[@id="J-item-' + str(num) + '"]/td[2]/p[1]'     # //*[@id="J-item-1"]/td[2]/p[1]    日期
-                al_time_xpath = '//*[@id="J-item-' + str(num) + '"]/td[2]/p[2]'    # //*[@id="J-item-1"]/td[2]/p[2]    时刻
-                al_way_xpath = '//*[@id="J-item-' + str(num) + '"]/td[3]/p[1]'     # //*[@id="J-item-1"]/td[3]/p[1]    方式
-                al_payee_xpath = '//*[@id="J-item-' + str(num) + '"]/td[3]/p[2]'   # //*[@id="J-item-1"]/td[3]/p[2]/span 收款人
-                al_snum_xpath = '//*[@id="J-tradeNo-' + str(num) + '"]'            # //*[@id="J-tradeNo-1"] 号#.get_attribute("title")
-                al_figure_xpath = '//*[@id="J-item-' + str(num) + '"]/td[4]/span'  # //*[@id="J-item-1"]/td[4]/span    金额
-                al_status_xpath = '//*[@id="J-item-' + str(num) + '"]/td[6]/p[1]'  # //*[@id="J-item-1"]/td[6]/p[1]    交易状态
+            # chrome_options = Options()
+            # chrome_options.add_argument('--headless')
+            # sel = webdriver.Chrome('D:\Program Files\python\Scripts\chromedriver.exe',chrome_options=chrome_options)
+            while True:
+                response = requests.get(Bill_Url)
+                restext = response.text
+                resatus = response.status_code
+                print(restext,requests)
+                self.sel.get(Bill_Url)
+                time.sleep(10)
+                global N
+                N = 0
+                for num in range(10):
+                    num = num + 1
+                    al_day_xpath = '//*[@id="J-item-' + str(num) + '"]/td[2]/p[1]'  # //*[@id="J-item-1"]/td[2]/p[1]    日期
+                    al_time_xpath = '//*[@id="J-item-' + str(num) + '"]/td[2]/p[2]'  # //*[@id="J-item-1"]/td[2]/p[2]    时刻
+                    al_way_xpath = '//*[@id="J-item-' + str(num) + '"]/td[3]/p[1]'  # //*[@id="J-item-1"]/td[3]/p[1]    方式
+                    al_payee_xpath = '//*[@id="J-item-' + str(
+                        num) + '"]/td[3]/p[2]'  # //*[@id="J-item-1"]/td[3]/p[2]/span 收款人
+                    al_snum_xpath = '//*[@id="J-tradeNo-' + str(
+                        num) + '"]'  # //*[@id="J-tradeNo-1"] 号#.get_attribute("title")
+                    al_figure_xpath = '//*[@id="J-item-' + str(
+                        num) + '"]/td[4]/span'  # //*[@id="J-item-1"]/td[4]/span    金额
+                    al_status_xpath = '//*[@id="J-item-' + str(
+                        num) + '"]/td[6]/p[1]'  # //*[@id="J-item-1"]/td[6]/p[1]    交易状态
 
-                al_time = sel.find_element_by_xpath(al_time_xpath).text
-                al_way = sel.find_element_by_xpath(al_way_xpath).text
-                al_payee = sel.find_element_by_xpath(al_payee_xpath).text
-                al_snum = sel.find_element_by_xpath(al_snum_xpath).text
-                al_figure = sel.find_element_by_xpath(al_figure_xpath).text
-                al_status = sel.find_element_by_xpath(al_status_xpath).text
-                al_day = al_snum[:7]
-                print(str(N) + '.' + '日期' + ':' + al_day + '\t时间' + ':' + al_time + '\t方式' + ':' + al_way + '\t收款人' + ':' + al_payee + '\t流水号' + ':' + al_snum + '\t金额' + ':' + al_figure + '\t交易状态' + ':' + al_status)
-                N = N +1
-                # single_data = self.handle_text(al_day, al_time, al_way, al_payee, al_snum, al_figure, al_status)
-                # print(single_data)
-                # if (single_data['set_time'] <= dateline):
-                #     break
-                # sql = "INSERT INTO ali_pay_bill (set_date, \
-                #                other, amount, sign,statu,way,code) \
-                #                VALUES ('%s', '%s', %s, %s, %s, '%s', '%s' )" % \
-                #       (single_data['set_date'], single_data['other'], single_data['amount'], \
-                #        single_data['sign'], single_data['statu'], single_data['way'], single_data['code'])
-                # print(sql)
-                # db.update(sql)
-            sel.close()
+                    al_time = self.sel.find_element_by_xpath(al_time_xpath).text
+                    al_way = self.sel.find_element_by_xpath(al_way_xpath).text
+                    al_payee = self.sel.find_element_by_xpath(al_payee_xpath).text
+                    al_snum = self.sel.find_element_by_xpath(al_snum_xpath).get_attribute("title")
+                    al_figure = self.sel.find_element_by_xpath(al_figure_xpath).text
+                    al_status = self.sel.find_element_by_xpath(al_status_xpath).text
+                    al_day = self.sel.find_element_by_xpath(al_day_xpath).text
+                    # print(al_time[num].text)
+                    print(str(
+                        N) + '.' + '日期' + ':' + al_day + '\t时间' + ':' + al_time + '\t方式' + ':' + al_way + '\t收款人' + ':' + al_payee + '\t流水号' + ':' + al_snum + '\t金额' + ':' + al_figure + '\t交易状态' + ':' + al_status)
+                    N = N + 1
+                time.sleep(15)
+        else:
+            print("登录失败，获取登录状态失败！")
+
 
 if __name__ == "__main__":
 
     test = Alipay_Bill_Info(HEADERS, USERNMAE, PASSWD)
-
+    # timer = threading.Timer(15, test.get_data())
     data = test.get_data()
 
 # print(data)
